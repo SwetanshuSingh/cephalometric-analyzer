@@ -21,3 +21,4 @@ export type LandmarkType =
   | "Menton"
   | "Gonion"
   | "Orbitale";
+// Define all 30+ landmarks here
