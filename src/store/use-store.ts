@@ -1,40 +1,59 @@
-import { Landmark, Point } from "@/types/landmarks";
-import { AngularMeasurement, LinearMeasurement } from "@/types/measurements";
 import { create } from "zustand";
 
 interface CephState {
-  // Image
-  uploadedImage: string | null;
-  imageScale: number; // pixels per mm
-
-  // Landmarks
-  landmarks: Record<string, Landmark>;
-  activeLandmark: string | null;
-
-  // Measurements
-  linearMeasurements: LinearMeasurement[];
-  angularMeasurements: AngularMeasurement[];
-
-  // Actions
-  setImage: (image: string) => void;
-  setImageScale: (scale: number) => void;
-  placeLandmark: (id: string, position: Point) => void;
-  removeLandmark: (id: string) => void;
-  setActiveLandmark: (id: string | null) => void;
-  calculateMeasurements: () => void;
-  resetAnalysis: () => void;
+  // Image State
+  uplaodedImage: HTMLImageElement | null;
+  imageData: string | null;
+  imageDimensions: { width: number; height: number } | null;
+  imageScale: number;
+  isCalibrated: boolean;
 }
 
-export const useStore = create<CephState>((set, get) => ({
-  // Initial state
-  uploadedImage: null,
-  imageScale: 1,
-  landmarks: initializeLandmarks(),
-  activeLandmark: null,
-  linearMeasurements: [],
-  angularMeasurements: [],
+interface CephActions {
+  // Image Actions
+  setImage: (imageData: string) => Promise<void>;
+  clearImage: () => void;
+  setImageScale: (scale: number) => void;
 
-  // Actions implementation
-  setImage: (image) => set({ uploadedImage: image }),
-  // ... implement other actions
+  // Measurement Actions
+}
+
+export const useCephStore = create<CephState & CephActions>((set, get) => ({
+  // Initial State
+  uplaodedImage: null,
+  imageData: null,
+  imageDimensions: null,
+  imageScale: 1,
+  isCalibrated: false,
+
+  // Actions
+  setImage: async (imageData: string) => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        set({
+          uplaodedImage: img,
+          imageData,
+          imageDimensions: { width: img.width, height: img.height },
+        });
+        resolve();
+      };
+      img.src = imageData;
+    });
+  },
+
+  clearImage: () => {
+    set({
+      uplaodedImage: null,
+      imageData: null,
+      imageDimensions: null,
+      imageScale: 1,
+      isCalibrated: false,
+    });
+  },
+
+  setImageScale: (scale: number) => {
+    set({ imageScale: scale, isCalibrated: true });
+    // TODO: Implement calculate all measurements function
+  },
 }));

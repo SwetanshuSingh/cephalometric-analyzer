@@ -12,13 +12,20 @@ export interface Landmark {
   category: "skeletal" | "dental" | "soft-tissue";
 }
 
-export type LandmarkType =
-  | "Sella"
-  | "Nasion"
-  | "A-Point"
-  | "B-Point"
-  | "Pogonion"
-  | "Menton"
-  | "Gonion"
-  | "Orbitale";
-// Define all 30+ landmarks here
+export type LandmarkId =
+  | "sella"
+  | "nasion"
+  | "a-point"
+  | "b-point"
+  | "pogonion"
+  | "menton"
+  | "gonion"
+  | "orbitale"
+  | "porion"
+  | "gnathion"
+  | "anterior-nasal-spine"
+  | "posterior-nasal-spine"
+  | "upper-incisor-tip"
+  | "lower-incisor-tip"
+  | "upper-incisor-root"
+  | "lower-incisor-root";
