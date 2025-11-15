@@ -1,28 +1,34 @@
-import { useEffect, useRef } from "react";
+"use client";
 
-import { Landmark } from "@/types/landmarks";
-import { AngularMeasurement, LinearMeasurement } from "@/types/measurements";
+import { useCephStore } from "@/store/use-store";
+import Konva from "konva";
+import { useRef, useState } from "react";
+import { Layer, Stage, Image as KonvaImage } from "react-konva";
 
-type CephState = {
-  uploadedImage: string | null;
-  imageScale: number;
-  landmarks: Record<string, Landmark>;
-  activeLandmark: string | null;
-  linearMeasurements: LinearMeasurement[];
-  angularMeasurements: AngularMeasurement[];
-};
+const CephCanvas = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<Konva.Stage>(null);
+  const [dimensions, setDimensions] = useState({ width: 800, height: 1000 });
 
-type CephCanvasProps = {
-  state: CephState | undefined;
-  setState: React.Dispatch<React.SetStateAction<CephState | undefined>>;
-};
-
-const CephCanvas = ({ state, setState }: CephCanvasProps) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { uplaodedImage, imageDimensions } = useCephStore();
 
   return (
-    <div className="canvas-container w-[800px] h-[800px] border border-white/80">
-      <canvas ref={canvasRef} />
+    <div
+      ref={containerRef}
+      className="relative w-full h-full bg-gray-900 overflow-hidden"
+    >
+      <Stage ref={stageRef} width={dimensions.width} height={dimensions.height}>
+        {/* Background Layer - Image */}
+        <Layer>
+          {uplaodedImage && (
+            <KonvaImage
+              image={uplaodedImage}
+              width={imageDimensions?.width}
+              height={imageDimensions?.height}
+            />
+          )}
+        </Layer>
+      </Stage>
     </div>
   );
 };
