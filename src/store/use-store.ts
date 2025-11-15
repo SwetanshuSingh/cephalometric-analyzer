@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 interface CephState {
   // Image State
-  uplaodedImage: HTMLImageElement | null;
+  uploadedImage: HTMLImageElement | null;
   imageData: string | null;
   imageDimensions: { width: number; height: number } | null;
   imageScale: number;
@@ -20,7 +20,7 @@ interface CephActions {
 
 export const useCephStore = create<CephState & CephActions>((set, get) => ({
   // Initial State
-  uplaodedImage: null,
+  uploadedImage: null,
   imageData: null,
   imageDimensions: null,
   imageScale: 1,
@@ -32,7 +32,7 @@ export const useCephStore = create<CephState & CephActions>((set, get) => ({
       const img = new Image();
       img.onload = () => {
         set({
-          uplaodedImage: img,
+          uploadedImage: img,
           imageData,
           imageDimensions: { width: img.width, height: img.height },
         });
@@ -44,7 +44,7 @@ export const useCephStore = create<CephState & CephActions>((set, get) => ({
 
   clearImage: () => {
     set({
-      uplaodedImage: null,
+      uploadedImage: null,
       imageData: null,
       imageDimensions: null,
       imageScale: 1,
