@@ -38,6 +38,7 @@ const CephCanvas = () => {
     placeLandmark,
     setHoveredLandmark,
     updateLandmarkPosition,
+    calibrationMode,
   } = useCephStore();
 
   // Handle container resize
@@ -58,19 +59,28 @@ const CephCanvas = () => {
 
   // Handle canvas click for landmark placement
   const handleStageClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
-    if (!activeLandmarkId) return;
-
     const stage = e.target.getStage();
     if (!stage) return;
 
-    // Get click position relative to stage
     const pointerPosition = stage.getPointerPosition();
     if (!pointerPosition) return;
 
-    // Convert to image coordinates (accounting for zoom and pan)
+    // Convert to image coordinates
     const imageX = (pointerPosition.x - stagePosition.x) / stageScale;
     const imageY = (pointerPosition.y - stagePosition.y) / stageScale;
 
+    // Check if in calibration mode
+    if (calibrationMode) {
+      // Dispatch custom event for calibration
+      const event = new CustomEvent("calibration-click", {
+        detail: { x: imageX, y: imageY },
+      });
+      window.dispatchEvent(event);
+      return;
+    }
+
+    // Normal landmark placement
+    if (!activeLandmarkId) return;
     placeLandmark(activeLandmarkId, { x: imageX, y: imageY });
   };
 
@@ -117,6 +127,13 @@ const CephCanvas = () => {
     <div
       ref={containerRef}
       className="relative w-full h-full bg-gray-900 overflow-hidden"
+      style={{
+        cursor: calibrationMode
+          ? "crosshair"
+          : activeLandmarkId
+          ? "crosshair"
+          : "grab",
+      }}
     >
       <Stage
         ref={stageRef}
@@ -126,7 +143,7 @@ const CephCanvas = () => {
         scaleY={stageScale}
         x={stagePosition.x}
         y={stagePosition.y}
-        draggable={!activeLandmarkId}
+        draggable={!activeLandmarkId && !calibrationMode}
         onClick={handleStageClick}
         onWheel={handleWheel}
         onDragEnd={handleDragEnd}
@@ -193,6 +210,23 @@ const CephCanvas = () => {
             );
           })}
         </Layer>
+
+        {/* Calibration Points Layer */}
+        {calibrationMode && (
+          <Layer>
+            {/* Show instruction text */}
+            <Text
+              text="Click two points of a known distance"
+              x={20}
+              y={20}
+              fontSize={16}
+              fill="yellow"
+              stroke="black"
+              strokeWidth={1}
+              fontStyle="bold"
+            />
+          </Layer>
+        )}
       </Stage>
 
       {/* Zoom controls */}

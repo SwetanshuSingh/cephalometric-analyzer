@@ -37,6 +37,8 @@ interface CephState {
   // History (for undo/redo)
   history: Array<Record<string, Landmark>>;
   historyIndex: number;
+
+  calibrationMode: boolean;
 }
 
 interface CephActions {
@@ -72,6 +74,8 @@ interface CephActions {
 
   // Utility
   reset: () => void;
+
+  setCalibrationMode: (mode: boolean) => void;
 }
 
 const initialLandmarks = Object.entries(LANDMARK_DEFINITIONS).reduce(
@@ -102,6 +106,7 @@ export const useCephStore = create<CephState & CephActions>((set, get) => ({
   showGrid: false,
   history: [initialLandmarks],
   historyIndex: 0,
+  calibrationMode: false,
 
   // Actions
   setImage: async (imageData: string) => {
@@ -276,4 +281,6 @@ export const useCephStore = create<CephState & CephActions>((set, get) => ({
       historyIndex: 0,
     });
   },
+
+  setCalibrationMode: (mode: boolean) => set({ calibrationMode: mode }),
 }));

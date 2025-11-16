@@ -1,6 +1,10 @@
 import { Landmark, Point, LandmarkId } from "@/types/landmarks";
 import { LinearMeasurement, AngularMeasurement } from "@/types/measurements";
-import { STEINER_ANALYSIS, DOWNS_ANALYSIS } from "@/lib/analysis-definitions";
+import {
+  STEINER_ANALYSIS,
+  DOWNS_ANALYSIS,
+  MCNAMARA_ANALYSIS,
+} from "@/lib/analysis-definitions";
 
 /**
  * Calculate Euclidean distance between two points
@@ -90,7 +94,11 @@ export const calculateLinearMeasurements = (
   analysisType: "steiner" | "downs" | "mcnamara"
 ): LinearMeasurement[] => {
   const analysis =
-    analysisType === "steiner" ? STEINER_ANALYSIS : DOWNS_ANALYSIS;
+    analysisType === "steiner"
+      ? STEINER_ANALYSIS
+      : analysisType === "downs"
+      ? DOWNS_ANALYSIS
+      : MCNAMARA_ANALYSIS;
   const measurements: LinearMeasurement[] = [];
 
   for (const measurementDef of analysis.measurements.linear) {
@@ -127,7 +135,11 @@ export const calculateAngularMeasurements = (
   analysisType: "steiner" | "downs" | "mcnamara"
 ): AngularMeasurement[] => {
   const analysis =
-    analysisType === "steiner" ? STEINER_ANALYSIS : DOWNS_ANALYSIS;
+    analysisType === "steiner"
+      ? STEINER_ANALYSIS
+      : analysisType === "downs"
+      ? DOWNS_ANALYSIS
+      : MCNAMARA_ANALYSIS;
   const measurements: AngularMeasurement[] = [];
 
   for (const measurementDef of analysis.measurements.angular) {
