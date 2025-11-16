@@ -13,7 +13,7 @@ import {
 import Konva from "konva";
 import { useCephStore } from "@/store/use-store";
 import { Point } from "@/types/landmarks";
-import { LandmarkMarker } from "./landmark-marker";
+import LandmarkMarker from "./landmark-marker";
 import MeasurementLine from "./measurement-line";
 
 const CephCanvas = () => {

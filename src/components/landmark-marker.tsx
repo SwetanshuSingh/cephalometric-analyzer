@@ -14,7 +14,7 @@ interface LandmarkMarkerProps {
   onMouseLeave: () => void;
 }
 
-export const LandmarkMarker = ({
+const LandmarkMarker = ({
   landmark,
   isActive,
   isHovered,
@@ -87,3 +87,5 @@ export const LandmarkMarker = ({
     </Group>
   );
 };
+
+export default LandmarkMarker;
