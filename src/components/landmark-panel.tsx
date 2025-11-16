@@ -1,9 +1,11 @@
-import React, { useMemo } from "react";
+"use client"
+
+import { useMemo } from "react";
 import { Check, Circle } from "lucide-react";
 import { useCephStore } from "@/store/use-store";
 import { Landmark } from "@/types/landmarks";
 
-export const LandmarkPanel: React.FC = () => {
+const LandmarkPanel = () => {
   const {
     landmarks,
     activeLandmarkId,
@@ -163,3 +165,5 @@ export const LandmarkPanel: React.FC = () => {
     </div>
   );
 };
+
+export default LandmarkPanel;
