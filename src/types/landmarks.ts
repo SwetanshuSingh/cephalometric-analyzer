@@ -10,6 +10,7 @@ export interface Landmark {
   description: string;
   position: Point | null;
   category: "skeletal" | "dental" | "soft-tissue";
+  color: string;
 }
 
 export type LandmarkId =
@@ -28,4 +29,6 @@ export type LandmarkId =
   | "upper-incisor-tip"
   | "lower-incisor-tip"
   | "upper-incisor-root"
-  | "lower-incisor-root";
+  | "lower-incisor-root"
+  | "articulare"
+  | "basion"

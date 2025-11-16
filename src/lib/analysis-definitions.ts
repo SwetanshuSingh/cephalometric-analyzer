@@ -1,0 +1,336 @@
+import { Analysis } from "@/types/measurements";
+
+export const STEINER_ANALYSIS: Analysis = {
+  id: "steiner",
+  name: "Steiner Analysis",
+  description:
+    "Comprehensive cephalometric analysis developed by Cecil Steiner",
+  requiredLandmarks: [
+    "sella",
+    "nasion",
+    "a-point",
+    "b-point",
+    "pogonion",
+    "gnathion",
+    "menton",
+    "gonion",
+    "upper-incisor-tip",
+    "lower-incisor-tip",
+  ],
+  measurements: {
+    angular: [
+      {
+        id: "sna",
+        name: "SNA",
+        description:
+          "Sella-Nasion-A Point: Maxillary position relative to cranial base",
+        landmarkIds: ["sella", "nasion", "a-point"],
+        value: null,
+        unit: "degrees",
+        normalRange: { min: 80, max: 84 },
+        interpretation: {
+          low: "Maxillary retrognathism - upper jaw positioned too far back",
+          normal: "Normal maxillary position",
+          high: "Maxillary prognathism - upper jaw positioned too far forward",
+        },
+      },
+      {
+        id: "snb",
+        name: "SNB",
+        description:
+          "Sella-Nasion-B Point: Mandibular position relative to cranial base",
+        landmarkIds: ["sella", "nasion", "b-point"],
+        value: null,
+        unit: "degrees",
+        normalRange: { min: 78, max: 82 },
+        interpretation: {
+          low: "Mandibular retrognathism - lower jaw positioned too far back",
+          normal: "Normal mandibular position",
+          high: "Mandibular prognathism - lower jaw positioned too far forward",
+        },
+      },
+      {
+        id: "anb",
+        name: "ANB",
+        description:
+          "A Point-Nasion-B Point: Relationship between maxilla and mandible",
+        landmarkIds: ["a-point", "nasion", "b-point"],
+        value: null,
+        unit: "degrees",
+        normalRange: { min: 0, max: 4 },
+        interpretation: {
+          low: "Class III skeletal pattern - potential underbite",
+          normal: "Class I skeletal pattern - normal jaw relationship",
+          high: "Class II skeletal pattern - potential overbite",
+        },
+      },
+      {
+        id: "snd",
+        name: "SND",
+        description:
+          "Sella-Nasion-D Point: Alternative to SNB for mandibular position",
+        landmarkIds: ["sella", "nasion", "pogonion"],
+        value: null,
+        unit: "degrees",
+        normalRange: { min: 76, max: 80 },
+        interpretation: {
+          low: "Retruded chin position",
+          normal: "Normal chin position",
+          high: "Prominent chin position",
+        },
+      },
+      {
+        id: "gonial-angle",
+        name: "Gonial Angle (Ar-Go-Me)",
+        description: "Angle at the mandibular angle - indicates growth pattern",
+        landmarkIds: ["articulare", "gonion", "menton"],
+        value: null,
+        unit: "degrees",
+        normalRange: { min: 120, max: 130 },
+        interpretation: {
+          low: "Horizontal growth pattern - shorter lower face",
+          normal: "Normal growth pattern",
+          high: "Vertical growth pattern - longer lower face",
+        },
+      },
+      {
+        id: "upper-incisor-sn",
+        name: "U1-SN",
+        description: "Upper incisor inclination to SN plane",
+        landmarkIds: ["upper-incisor-tip", "sella", "nasion"],
+        value: null,
+        unit: "degrees",
+        normalRange: { min: 100, max: 106 },
+        interpretation: {
+          low: "Retroclined upper incisors",
+          normal: "Normal upper incisor inclination",
+          high: "Proclined upper incisors",
+        },
+      },
+      {
+        id: "lower-incisor-mandibular",
+        name: "L1-Mandibular Plane",
+        description: "Lower incisor inclination to mandibular plane",
+        landmarkIds: ["lower-incisor-tip", "gonion", "menton"],
+        value: null,
+        unit: "degrees",
+        normalRange: { min: 88, max: 95 },
+        interpretation: {
+          low: "Retroclined lower incisors",
+          normal: "Normal lower incisor inclination",
+          high: "Proclined lower incisors",
+        },
+      },
+      {
+        id: "interincisal-angle",
+        name: "Interincisal Angle",
+        description: "Angle between upper and lower incisors",
+        landmarkIds: [
+          "upper-incisor-tip",
+          "lower-incisor-tip",
+          "upper-incisor-root",
+        ],
+        value: null,
+        unit: "degrees",
+        normalRange: { min: 130, max: 140 },
+        interpretation: {
+          low: "Proclined incisors - potential protrusion",
+          normal: "Normal incisor relationship",
+          high: "Retroclined incisors - potential retrusion",
+        },
+      },
+    ],
+    linear: [
+      {
+        id: "upper-incisor-na-linear",
+        name: "U1 to NA (linear)",
+        description: "Distance from upper incisor tip to NA line",
+        landmarkIds: ["upper-incisor-tip", "nasion"],
+        value: null,
+        unit: "mm",
+        normalRange: { min: 4, max: 6 },
+      },
+      {
+        id: "lower-incisor-nb-linear",
+        name: "L1 to NB (linear)",
+        description: "Distance from lower incisor tip to NB line",
+        landmarkIds: ["lower-incisor-tip", "nasion"],
+        value: null,
+        unit: "mm",
+        normalRange: { min: 4, max: 6 },
+      },
+      {
+        id: "pogonion-nb",
+        name: "Pog to NB",
+        description: "Distance from pogonion to NB line",
+        landmarkIds: ["pogonion", "nasion"],
+        value: null,
+        unit: "mm",
+        normalRange: { min: 0, max: 4 },
+      },
+    ],
+  },
+};
+
+export const DOWNS_ANALYSIS: Analysis = {
+  id: "downs",
+  name: "Downs Analysis",
+  description:
+    "Classic analysis focusing on facial profile and skeletal pattern",
+  requiredLandmarks: [
+    "nasion",
+    "sella",
+    "a-point",
+    "b-point",
+    "pogonion",
+    "gnathion",
+    "menton",
+    "gonion",
+    "orbitale",
+    "porion",
+  ],
+  measurements: {
+    angular: [
+      {
+        id: "facial-angle",
+        name: "Facial Angle",
+        description: "N-Pog to Frankfort Horizontal - facial convexity",
+        landmarkIds: ["nasion", "pogonion", "porion"],
+        value: null,
+        unit: "degrees",
+        normalRange: { min: 85, max: 89 },
+        interpretation: {
+          low: "Convex profile - retrusive lower face",
+          normal: "Normal facial profile",
+          high: "Concave profile - protrusive lower face",
+        },
+      },
+      {
+        id: "convexity",
+        name: "Angle of Convexity",
+        description: "N-A-Pog: Measures profile convexity",
+        landmarkIds: ["nasion", "a-point", "pogonion"],
+        value: null,
+        unit: "degrees",
+        normalRange: { min: 0, max: 5 },
+        interpretation: {
+          low: "Concave profile (Class III tendency)",
+          normal: "Normal profile convexity",
+          high: "Convex profile (Class II tendency)",
+        },
+      },
+      {
+        id: "ab-plane-angle",
+        name: "A-B Plane Angle",
+        description: "Relationship of A and B points to facial plane",
+        landmarkIds: ["a-point", "b-point", "nasion"],
+        value: null,
+        unit: "degrees",
+        normalRange: { min: -4.5, max: 0 },
+        interpretation: {
+          low: "Mandible protrusive relative to maxilla",
+          normal: "Normal jaw relationship",
+          high: "Mandible retrusive relative to maxilla",
+        },
+      },
+      {
+        id: "mandibular-plane-angle-downs",
+        name: "Mandibular Plane Angle",
+        description: "Go-Me to Frankfort Horizontal",
+        landmarkIds: ["gonion", "menton", "porion"],
+        value: null,
+        unit: "degrees",
+        normalRange: { min: 21.9, max: 25 },
+        interpretation: {
+          low: "Horizontal growth - short lower face",
+          normal: "Normal mandibular plane angle",
+          high: "Vertical growth - long lower face",
+        },
+      },
+      {
+        id: "y-axis",
+        name: "Y-Axis",
+        description: "S-Gn to Frankfort Horizontal - growth direction",
+        landmarkIds: ["sella", "gnathion", "porion"],
+        value: null,
+        unit: "degrees",
+        normalRange: { min: 59, max: 63 },
+        interpretation: {
+          low: "Horizontal growth pattern",
+          normal: "Normal growth direction",
+          high: "Vertical growth pattern",
+        },
+      },
+    ],
+    linear: [],
+  },
+};
+
+export const MCNAMARA_ANALYSIS: Analysis = {
+  id: "mcnamara",
+  name: "McNamara Analysis",
+  description: "Analysis emphasizing facial proportions and soft tissue",
+  requiredLandmarks: [
+    "nasion",
+    "a-point",
+    "b-point",
+    "pogonion",
+    "anterior-nasal-spine",
+    "posterior-nasal-spine",
+    "basion",
+  ],
+  measurements: {
+    angular: [
+      {
+        id: "cranial-base-angle",
+        name: "Cranial Base Angle",
+        description: "N-S-Ba: Angle of cranial base",
+        landmarkIds: ["nasion", "sella", "basion"],
+        value: null,
+        unit: "degrees",
+        normalRange: { min: 125, max: 135 },
+        interpretation: {
+          low: "Acute cranial base angle",
+          normal: "Normal cranial base angle",
+          high: "Obtuse cranial base angle",
+        },
+      },
+    ],
+    linear: [
+      {
+        id: "maxillary-length",
+        name: "Maxillary Length",
+        description: "Distance from Condylion to A-point",
+        landmarkIds: ["articulare", "a-point"],
+        value: null,
+        unit: "mm",
+        normalRange: { min: 85, max: 95 },
+      },
+      {
+        id: "mandibular-length",
+        name: "Mandibular Length",
+        description: "Distance from Condylion to Pogonion",
+        landmarkIds: ["articulare", "pogonion"],
+        value: null,
+        unit: "mm",
+        normalRange: { min: 110, max: 120 },
+      },
+      {
+        id: "lower-face-height",
+        name: "Lower Face Height",
+        description: "Distance from ANS to Menton",
+        landmarkIds: ["anterior-nasal-spine", "menton"],
+        value: null,
+        unit: "mm",
+        normalRange: { min: 62, max: 68 },
+      },
+    ],
+  },
+};
+
+// Export all analyses as array for easy iteration
+export const ALL_ANALYSES = [
+  STEINER_ANALYSIS,
+  DOWNS_ANALYSIS,
+  MCNAMARA_ANALYSIS,
+];
