@@ -1,3 +1,5 @@
+"use client"
+
 import { Group, Line, Text } from "react-konva";
 import { Point } from "@/types/landmarks";
 
