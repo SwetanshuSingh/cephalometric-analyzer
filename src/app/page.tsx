@@ -193,7 +193,7 @@ const Home = () => {
                 <ImageUploader />
 
                 {/* Instructions */}
-                <div className="mt-8 p-6 bg-white rounded-lg shadow-sm">
+                {/* <div className="mt-8 p-6 bg-white rounded-lg shadow-sm">
                   <h3 className="font-semibold text-lg mb-4">How to Use</h3>
                   <ol className="space-y-3 text-sm text-gray-700">
                     <li className="flex gap-3">
@@ -241,10 +241,10 @@ const Home = () => {
                       </span>
                     </li>
                   </ol>
-                </div>
+                </div> */}
 
                 {/* Features */}
-                <div className="mt-6 grid grid-cols-3 gap-4">
+                {/* <div className="mt-6 grid grid-cols-3 gap-4">
                   <div className="p-4 bg-white rounded-lg shadow-sm text-center">
                     <div className="text-2xl mb-2">🎯</div>
                     <h4 className="font-semibold text-sm mb-1">Accurate</h4>
@@ -270,7 +270,7 @@ const Home = () => {
                       PDF and print options
                     </p>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           ) : (
